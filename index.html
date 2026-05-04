@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earn & Claim Rewards Nigeria</title>
+    <style>
+        /* --- CSS STYLING --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 450px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            padding-bottom: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1b5e20, #2e7d32);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .balance-card h2 {
+            font-size: 36px;
+            margin: 10px 0;
+        }
+
+        .info-box {
+            background: #fff9c4;
+            padding: 15px;
+            margin: 15px;
+            border-radius: 10px;
+            font-size: 13px;
+            border-left: 5px solid #fbc02d;
+            color: #5d4037;
+        }
+
+        .form-container {
+            padding: 0 20px;
+        }
+
+        h3 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .withdraw-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .withdraw-btn:hover {
+            background-color: #1b5e20;
+        }
+
+        .proof-section {
+            padding: 20px;
+            background: #fafafa;
+            margin-top: 20px;
+        }
+
+        .proof-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        .status-success {
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        .privacy-footer {
+            font-size: 11px;
+            text-align: center;
+            color: #888;
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <p>Welcome to Rewards Dashboard</p>
+            <div class="balance-card">
+                <small>Available Balance</small>
+                <h2 id="currentBalance">₦450,000</h2>
+                <p>Invite friends to reach ₦500,000</p>
+            </div>
+        </header>
+
+        <div class="info-box">
+            <strong>Privacy Note:</strong> Your bank account name and number are only used for processing withdrawals. We do not share your personal data with third parties.
+        </div>
+
+        <div class="form-container">
+            <h3>Withdrawal Details</h3>
+            <form id="claimForm">
+                <input type="text" id="accName" placeholder="Bank Account Name" required>
+                <input type="number" id="accNumber" placeholder="Account Number (10 Digits)" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
+                
+                <select id="bankName" required>
+                    <option value="">-- Select Your Bank --</option>
+                    <option value="access">Access Bank</option>
+                    <option value="gtb">Guaranty Trust Bank (GTB)</option>
+                    <option value="zenith">Zenith Bank</option>
+                    <option value="firstbank">First Bank of Nigeria</option>
+                    <option value="kuda">Kuda Bank</option>
+                    <option value="opay">OPay</option>
+                    <option value="palmpay">PalmPay</option>
+                    <option value="uba">United Bank for Africa (UBA)</option>
+                </select>
+
+                <button type="submit" class="withdraw-btn">Claim Money Now</button>
+            </form>
+        </div>
+
+        <div class="proof-section">
+            <h3>Recent Successful Payouts</h3>
+            <div id="payoutContainer">
+                <div class="proof-item">
+                    <span>Okon J. (Access Bank)</span>
+                    <span class="status-success">₦500,000 Paid</span>
+                </div>
+                <div class="proof-item">
+                    <span>Blessing E. (OPay)</span>
+                    <span class="status-success">₦505,000 Paid</span>
+                </div>
+                <div class="proof-item">
+                    <span>Musa A. (GTBank)</span>
+                    <span class="status-success">₦500,000 Paid</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="privacy-footer">
+            © 2026 Nigeria Money Rewards. All bank details are encrypted.
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('claimForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // 1. Get current balance value
+            const balanceText = document.getElementById('currentBalance').innerText;
+            const currentAmount = parseInt(balanceText.replace(/[₦,]/g, ''));
+            const minimumLimit = 500000;
+
+            // 2. Validate threshold
+            if (currentAmount < minimumLimit) {
+                const missing = minimumLimit - currentAmount;
+                alert("❌ INSUFFICIENT BALANCE\n\nYou need ₦" + missing.toLocaleString() + " more to reach the ₦500,000 threshold. Keep inviting others!");
+            } else {
+                const name = document.getElementById('accName').value;
+                alert("✅ SUCCESS!\n\nThank you " + name + ". Your withdrawal request of " + balanceText + " has been submitted and is currently being verified.");
+            }
+        });
+
+        // Simple animation to simulate live updates
+        setInterval(function() {
+            console.log("Checking for new payouts...");
+        }, 5000);
+    </script>
+
+</body>
+  </html>
+                      
