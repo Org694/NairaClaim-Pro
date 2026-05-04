@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NairaFast - Claim Rewards</title>
     <style>
-        /* --- FULL CSS STYLING --- */
         body {
             font-family: 'Segoe UI', Roboto, sans-serif;
             background-color: #f0f2f5;
@@ -32,11 +31,36 @@
             text-align: center;
         }
 
-        .balance-card h2 {
-            font-size: 38px;
-            margin: 10px 0;
-            color: #fff;
+        .balance-card h2 { font-size: 38px; margin: 10px 0; color: #fff; }
+
+        /* Tasks Section */
+        .task-section {
+            padding: 15px;
+            background: #fff;
         }
+
+        .task-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .task-btn {
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: none;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .tg-btn { background: #0088cc; }
+        .fb-btn { background: #1877f2; }
 
         /* Claim Section */
         .claim-area {
@@ -58,13 +82,9 @@
             border-radius: 50px;
             cursor: pointer;
             width: 80%;
-            transition: 0.3s;
         }
 
-        .claim-timer-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
+        .claim-timer-btn:disabled { background: #ccc; }
 
         .info-box {
             background: #fff9c4;
@@ -75,9 +95,7 @@
             border-left: 5px solid #fbc02d;
         }
 
-        .form-container {
-            padding: 0 20px;
-        }
+        .form-container { padding: 0 20px; }
 
         input, select {
             width: 100%;
@@ -86,7 +104,6 @@
             border: 1px solid #ccc;
             border-radius: 8px;
             box-sizing: border-box;
-            font-size: 16px;
         }
 
         .withdraw-btn {
@@ -101,28 +118,18 @@
             cursor: pointer;
         }
 
-        .proof-section {
-            padding: 20px;
-            background: #fafafa;
-            margin-top: 20px;
-        }
+        .proof-section { padding: 20px; background: #fafafa; margin-top: 20px; }
 
         .proof-item {
             display: flex;
             justify-content: space-between;
-            padding: 10px 0;
+            padding: 8px 0;
             border-bottom: 1px solid #eee;
             font-size: 13px;
         }
 
         .status-success { color: #2e7d32; font-weight: bold; }
-
-        .privacy-footer {
-            font-size: 11px;
-            text-align: center;
-            color: #888;
-            padding: 15px;
-        }
+        .privacy-footer { font-size: 11px; text-align: center; color: #888; padding: 15px; }
     </style>
 </head>
 <body>
@@ -137,6 +144,18 @@
             </div>
         </header>
 
+        <div class="task-section">
+            <h3>Special Bonuses</h3>
+            <div class="task-card">
+                <span>Join Telegram (+₦20,000)</span>
+                <button class="task-btn tg-btn" onclick="socialTask('tg', 'https://t.me/yourlink')">Open</button>
+            </div>
+            <div class="task-card">
+                <span>Follow Facebook (+₦20,000)</span>
+                <button class="task-btn fb-btn" onclick="socialTask('fb', 'https://facebook.com/yourlink')">Open</button>
+            </div>
+        </div>
+
         <div class="claim-area">
             <h3>Claim ₦1,000 Every Minute!</h3>
             <p id="timerDisplay" style="font-weight: bold; color: #d32f2f;"></p>
@@ -144,90 +163,95 @@
         </div>
 
         <div class="info-box">
-            <strong>Privacy Policy:</strong> We protect your Nigerian bank details with end-to-end encryption. Data is only used for payout verification.
+            <strong>Privacy Policy:</strong> Your data is encrypted. Bank details are only used for payout verification.
         </div>
 
         <div class="form-container">
             <h3>Withdraw to Bank Account</h3>
             <form id="claimForm">
                 <input type="text" id="accName" placeholder="Account Holder Name" required>
-                <input type="number" id="accNumber" placeholder="Account Number (10 Digits)" required maxlength="10">
-                
+                <input type="number" id="accNumber" placeholder="Account Number" required maxlength="10">
                 <select id="bankName" required>
                     <option value="">-- Choose Bank --</option>
-                    <option value="access">Access Bank</option>
                     <option value="gtb">GTBank</option>
-                    <option value="zenith">Zenith Bank</option>
                     <option value="kuda">Kuda MFB</option>
                     <option value="opay">OPay / PalmPay</option>
                     <option value="first">First Bank</option>
-                    <option value="uba">UBA</option>
                 </select>
-
                 <button type="submit" class="withdraw-btn">Withdraw Funds</button>
             </form>
         </div>
 
         <div class="proof-section">
             <h3>Recent Withdrawals</h3>
-            <div id="payoutContainer">
-                <div class="proof-item"><span>Emeka V. (GTB)</span><span class="status-success">₦500,000 Paid</span></div>
-                <div class="proof-item"><span>Fatima R. (Kuda)</span><span class="status-success">₦510,000 Paid</span></div>
-                <div class="proof-item"><span>Sunday O. (OPay)</span><span class="status-success">₦500,000 Paid</span></div>
-            </div>
+            <div class="proof-item"><span>Emeka V. (GTB)</span><span class="status-success">₦500,000 Paid</span></div>
+            <div class="proof-item"><span>Fatima R. (Kuda)</span><span class="status-success">₦510,000 Paid</span></div>
         </div>
 
-        <div class="privacy-footer">
-            © 2026 SecureRewards NG. Safe & Encrypted.
-        </div>
+        <div class="privacy-footer">© 2026 SecureRewards NG.</div>
     </div>
 
     <script>
-        let balance = 450000;
+        // Initialize balance from storage or set default
+        let balance = localStorage.getItem('nairaBalance') ? parseInt(localStorage.getItem('nairaBalance')) : 450000;
         const minWithdraw = 500000;
+
+        // Update UI immediately on load
+        updateUI();
 
         // 1. Minute Claim Logic
         function startClaim() {
             let timeLeft = 60;
             const btn = document.getElementById('claimBtn');
             const display = document.getElementById('timerDisplay');
-            
             btn.disabled = true;
             
             let countdown = setInterval(function() {
                 timeLeft--;
-                display.innerText = "Processing... Please wait " + timeLeft + "s";
-                
+                display.innerText = "Processing... " + timeLeft + "s";
                 if (timeLeft <= 0) {
                     clearInterval(countdown);
                     display.innerText = "";
-                    balance += 1000;
-                    updateUI();
-                    alert("🎉 ₦1,000 added to your balance!");
+                    addMoney(1000);
+                    alert("🎉 ₦1,000 added!");
                     btn.disabled = false;
                 }
             }, 1000);
         }
 
-        // 2. Update the Balance on Screen
+        // 2. Social Task Logic
+        function socialTask(platform, link) {
+            if (localStorage.getItem(platform + 'Claimed')) {
+                alert("You have already claimed this bonus!");
+            } else {
+                window.open(link, '_blank');
+                addMoney(20000);
+                localStorage.setItem(platform + 'Claimed', 'true');
+                alert("🎉 ₦20,000 Bonus Added for joining " + platform.toUpperCase() + "!");
+            }
+        }
+
+        // 3. Helper function to add money and save
+        function addMoney(amount) {
+            balance += amount;
+            localStorage.setItem('nairaBalance', balance);
+            updateUI();
+        }
+
         function updateUI() {
             document.getElementById('currentBalance').innerText = "₦" + balance.toLocaleString();
             if (balance >= minWithdraw) {
                 document.getElementById('progressMsg').innerText = "✅ Threshold reached! You can withdraw.";
-                document.getElementById('progressMsg').style.color = "#fff";
             }
         }
 
-        // 3. Withdrawal Logic
+        // 4. Withdrawal Logic
         document.getElementById('claimForm').addEventListener('submit', function(e) {
             e.preventDefault();
-
             if (balance < minWithdraw) {
-                let diff = minWithdraw - balance;
-                alert("❌ Withdrawal Failed!\n\nYou need ₦" + diff.toLocaleString() + " more to reach the ₦500,000 limit.");
+                alert("❌ You need ₦" + (minWithdraw - balance).toLocaleString() + " more to withdraw.");
             } else {
-                const name = document.getElementById('accName').value;
-                alert("✅ Request Received!\n\nHello " + name + ", your ₦" + balance.toLocaleString() + " withdrawal is pending approval.");
+                alert("✅ Withdrawal request for ₦" + balance.toLocaleString() + " submitted!");
             }
         });
     </script>
